@@ -1,7 +1,7 @@
 #include "climate_modeling.hpp"
 
 //template <typename T>
-void printVector(std::vector<double> v)
+void printVector(const std::vector<double> &v)
 {
     for (auto i : v)
     {
@@ -10,7 +10,7 @@ void printVector(std::vector<double> v)
     std::cout << '\n';
 }
 
-void writeSolution(Solution s, std::string name)
+void writeSolution(const Solution & s, const std::string & name)
 {
     std::ofstream outf{name};
     uint64_t n{s.t.size()};
