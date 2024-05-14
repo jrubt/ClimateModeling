@@ -5,13 +5,13 @@
 #include <iostream>
 #include <string>
 
-const double k_epsilon{0.62};
-const double k_sigma{0.567e-7};
-const double k_s_0{1368.0};
-const double k_c{0.2e9};
-const double k_alpha{0.3};
-const double k_a{k_s_0 / (4 * k_c)};
-const double k_b{k_epsilon * k_sigma / k_c};
+const double kEpsilon{0.62};
+const double kSigma{0.567e-7};
+const double kS_0{1368.0};
+const double kC{0.2e9};
+const double kAlpha{0.3};
+const double kA{kS_0 / (4 * kC)};
+const double kB{kEpsilon * kSigma / kC};
 
 struct Solution
 {
