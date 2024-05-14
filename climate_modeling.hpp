@@ -5,13 +5,13 @@
 #include <iostream>
 #include <string>
 
-const double k_epsilon{0.62};
-const double k_sigma{0.567e-7};
-const double k_s_0{1368.0};
-const double k_c{0.2e9};
-const double k_alpha{0.3};
-const double k_a{k_s_0 / (4 * k_c)};
-const double k_b{k_epsilon * k_sigma / k_c};
+const double kEpsilon{0.62};
+const double kSigma{0.567e-7};
+const double kS_0{1368.0};
+const double kC{0.2e9};
+const double kAlpha{0.3};
+const double kA{kS_0 / (4 * kC)};
+const double kB{kEpsilon * kSigma / kC};
 
 struct Solution
 {
@@ -32,7 +32,13 @@ double ebm2(double T);
 /// @param initialValue
 /// @param h
 /// @return
-double forwardEulerStep(double (*rhs)(double x), double t_start, double initialValue, double h);
+std::vector<double> predatorPreyEQ(std::vector<double> &v);
+template <class F>
+double forwardEulerStep(const F &rhs, double t_start, double initialValue, double h)
+{
+    return initialValue + h * rhs(initialValue);
+}
+// double forwardEulerStep(double (*rhs)(double x), double t_start, double initialValue, double h);
 /// @brief
 /// @param rhs
 /// @param t_start
@@ -40,6 +46,31 @@ double forwardEulerStep(double (*rhs)(double x), double t_start, double initialV
 /// @param initialValue
 /// @param h
 /// @return
-Solution solveODE(double (*rhs)(double x), double t_start, double t_end, double initialValue, double h);
+// Solution solveODE(double (*rhs)(double x), double t_start, double t_end, double initialValue, double h);
+template <class F>
+Solution solveODE(const F &f, double t_start, double t_end, double initialValue, double h)
+{
+    double t{t_start};
+    uint64_t l{static_cast<uint64_t>((t_end - t_start) / h + 1.0)};
+    std::vector<double> res_t(l);
+    std::vector<double> res_x(l);
+    res_t[0] = t_start;
+    res_x[0] = initialValue;
+    size_t i{1};
+    while (t < t_end)
+    {
+        if (t_end - t < h)
+        {
+            h = t_end - t;
+        }
+        res_x[i] = forwardEulerStep(f, t, res_x[i - 1], h);
+        t += h;
+        res_t[i] = t;
+        i++;
+    }
+
+    return {res_t, res_x};
+};
 void printVector(const std::vector<double> &v);
 void writeSolution(const Solution &s, const std::string &name);
+

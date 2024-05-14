@@ -1,11 +1,11 @@
 #include "climate_modeling.hpp"
-
-double forwardEulerStep(double (*rhs)(double x), double t_start, double initialValue, double h)
+//template <class F>
+/*double forwardEulerStep(const F &rhs, double t_start, double initialValue, double h)
 {
     return initialValue + h * rhs(initialValue);
 }
-
-Solution solveODE(double (*rhs)(double x), double t_start, double t_end, double initialValue, double h)
+template <class F>
+Solution solveODE(const F& f, double t_start, double t_end, double initialValue, double h)
 {
     double t{t_start};
     uint64_t l{static_cast<uint64_t>((t_end - t_start) / h + 1.0)};
@@ -20,11 +20,11 @@ Solution solveODE(double (*rhs)(double x), double t_start, double t_end, double 
         {
             h = t_end - t;
         }
-        res_x[i] = forwardEulerStep(*rhs, t, res_x[i - 1], h);
+        res_x[i] = 0;//forwardEulerStep(f, t, res_x[i - 1], h);
         t += h;
         res_t[i] = t;
         i++;
     }
 
     return {res_t, res_x};
-}
+}*/
