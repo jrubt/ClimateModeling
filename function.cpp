@@ -3,7 +3,6 @@
 double ebm(double T)
 {
     return (1.0 - kAlpha) * kA - kB * T * T * T * T;
-    return (1.0 - kAlpha) * kA - kB * T * T * T * T;
 }
 
 double ebm2(double T)
