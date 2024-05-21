@@ -11,7 +11,7 @@ double ebm2(double T)
     return (1.0 - alpha) * kA - kB * T * T * T * T;
 }
 
-std::vector<double> predatorPreyEQ(std::vector<double> &v)
+std::vector<double> predatorPreyEQ(double t, const std::vector<double> &v)
 {
-    return std::vector<double>{(1 - v[1]) * v[0], (1 - v[0]) * v[1]};
+    return std::vector<double>{(1 - v[1]) * v[0], (v [0] - 1) * v[1]};
 }

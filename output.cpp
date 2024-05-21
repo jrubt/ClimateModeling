@@ -16,6 +16,11 @@ void writeSolution(const Solution &s, const std::string &name)
     uint64_t n{s.t.size()};
     for (size_t i{0}; i < n; ++i)
     {
-        outf << s.t[i] << ' ' << s.x[i] << '\n';
+        outf << s.t[i];
+        for (auto x : s.x[i])
+        {
+            outf << ' ' << x;
+        }
+        outf<<'\n';
     }
 }

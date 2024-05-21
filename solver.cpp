@@ -20,7 +20,7 @@ Solution solveODE(const F& f, double t_start, double t_end, double initialValue,
         {
             h = t_end - t;
         }
-        res_x[i] = 0;//forwardEulerStep(f, t, res_x[i - 1], h);
+        res_x[i] = forwardEulerStep(f, t, res_x[i - 1], h);
         t += h;
         res_t[i] = t;
         i++;

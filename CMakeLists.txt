@@ -5,4 +5,4 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_CXX_COMPILER "g++-12")
 set(CMAKE_CXX_FLAGS "-std=c++20 -Wall -pedantic -Winline -Wmain")
 
-add_executable(exercise02 exercise02.cpp function.cpp output.cpp solver.cpp)
+add_executable(exercise03 exercise03.cpp function.cpp output.cpp solver.cpp)
