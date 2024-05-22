@@ -34,17 +34,19 @@ double ebm2(double T);
 /// @param h
 /// @return
 std::vector<double> predatorPreyEQ(double t, const std::vector<double> &v);
+
 template <class F>
-std::vector<double> forwardEulerStep(const F &rhs, const std::vector<double> &initialValue, double h)
+std::vector<double> forwardEulerStep(const F &rhs, const std::vector<double> &initialValue, double initialTime, double h)
 {
     size_t dim{initialValue.size()};
-    std::vector<double> res{rhs(initialValue)};
+    std::vector<double> res{rhs(initialTime, initialValue)};
     for (size_t i{0}; i < dim; ++i)
     {
         res[i] = initialValue[i] + h * res[i];
     }
     return res;
 }
+
 template <class F>
 std::vector<double> rk4Step(const F &rhs, const std::vector<double> &initialValue, double initialTime, double h)
 {
@@ -87,8 +89,8 @@ std::vector<double> rk4Step(const F &rhs, const std::vector<double> &initialValu
 /// @param h
 /// @return
 
-template <class F>
-Solution solveODE(const F &f, double t_start, double t_end, const std::vector<double> &initialValue, double h)
+template <class G>
+Solution solveODE(const G &stepMethod, double t_start, double t_end, const std::vector<double> &initialValue, double h)
 {
     double t{t_start};
     uint64_t l{static_cast<uint64_t>((t_end - t_start) / h + 1.0)};
@@ -103,7 +105,7 @@ Solution solveODE(const F &f, double t_start, double t_end, const std::vector<do
         {
             h = t_end - t;
         }
-        res_x[i] = rk4Step(f, res_x[i - 1], res_t[i - 1], h);
+        res_x[i] = stepMethod(res_x[i - 1], res_t[i - 1], h);
         t += h;
         res_t[i] = t;
         i++;
