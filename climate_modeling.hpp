@@ -4,6 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <cstdint>
 
 const double kEpsilon{0.62};
 const double kSigma{0.567e-7};
